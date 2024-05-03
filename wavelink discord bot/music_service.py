@@ -15,7 +15,6 @@ class MusicService():
         
     def lavalink_start(self):
         logging.info('Start LavaLink...')
-        os.startfile("lavalink\\start.bat")
         time.sleep(5)
     
     async def _choose(self, interaction:discord.Interaction, tracks:list[wavelink.Playable]) -> wavelink.Playable:

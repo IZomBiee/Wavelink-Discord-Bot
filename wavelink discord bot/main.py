@@ -3,11 +3,9 @@ import os
 
 import discord
 
-from bot import Bot
 from dotenv import load_dotenv
 load_dotenv()
-
-if __name__ == '__main__':
+def check_env():
     if not os.path.isfile(".env"):
         with open('.env', 'w') as file:
             file.write(
@@ -25,8 +23,14 @@ command_sync=true
 log_level=INFO
 cache=100
 ''')
-            exit("File .env was created. Please configurate bot!")
+        exit("File .env was created. Please configurate bot!")
+    elif None in (os.getenv('token'), os.getenv('guild')):
+        exit("Please configure the .env file!")
 
+check_env()
+from bot import Bot
+
+if __name__ == '__main__':
     logging.basicConfig(filename="last.log", level=os.getenv('log_level'), filemode='w',
         format='%(asctime)s - %(name)s - %(levelname)s - %(module)s - %(funcName)s: %(message)s', encoding='utf-8')
     discord.utils.setup_logging(level=os.getenv('log_level'))
