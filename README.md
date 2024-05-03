@@ -18,7 +18,7 @@ pip install poetry
 
 4. Select the project directory:
 ```shell
-cd Discord-Music-Bot
+cd Wavelink-Discord-Bot
 ```
 
 5. Install dependencies
@@ -30,7 +30,7 @@ poetry install
 
 7. Run main file and change settings in .env:
 ```shell
-poetry run python "discord music bot\main.py"
+poetry run python "wavelink discord bot\main.py"
 ```
 
 7. Run main file again

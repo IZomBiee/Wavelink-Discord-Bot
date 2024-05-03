@@ -8,9 +8,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 if __name__ == '__main__':
-    if os.getenv('token') == None:
+    if not os.path.isfile(".env"):
         with open('.env', 'w') as file:
-            file.write('''
+            file.write(
+'''
 guild=
 token=
 basic_source=youtube 
@@ -24,7 +25,7 @@ command_sync=true
 log_level=INFO
 cache=100
 ''')
-            exit(".env file was created. Please configurate bot!")
+            exit("File .env was created. Please configurate bot!")
 
     logging.basicConfig(filename="last.log", level=os.getenv('log_level'), filemode='w',
         format='%(asctime)s - %(name)s - %(levelname)s - %(module)s - %(funcName)s: %(message)s', encoding='utf-8')

@@ -55,8 +55,8 @@ logging:
     path: ./logs/
 
   level:
-    root: WARN
-    lavalink: WARN
+    root: INFO
+    lavalink: INFO
 
   logback:
     rollingpolicy:
