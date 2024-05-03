@@ -8,7 +8,7 @@ This bot works in Lavalink with Wavelink wrapper. It could skip, play on youtube
 2. Clone repository (To desktop for example):
 ```shell
 cd desktop
-git clone https://github.com/IZomBiee/Discord-Music-Bot
+git clone https://github.com/IZomBiee/Wavelink-Discord-Bot
 ```
 
 3. Install poetry and restart console (If you don't have):
