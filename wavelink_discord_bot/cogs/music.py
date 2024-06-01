@@ -33,7 +33,7 @@ class Music(commands.Cog):
     async def on_wavelink_track_start(self, payload: wavelink.TrackStartEventPayload) -> None:
         logging.info(f'Playing track {payload.track.title}')
         embed = discord.Embed(title=f'Now play: {payload.track.title}',
-                              description=f'Lenth: {MusicService.mil_to_time(payload.track.length)}',
+                              description=f'Lenth: {MusicService.mil_to_time(payload.track.length)}\nURL: {payload.track.uri}',
                               color=0x336EFF)
         if payload.track.artwork:
             embed.set_image(url=payload.track.artwork)
@@ -41,11 +41,11 @@ class Music(commands.Cog):
         await self.last_interaction.channel.send(embed=embed)
         
     @commands.Cog.listener()
-    async def on_wavelink_track_end(self, payload:wavelink.TrackEndEventPayload):
+    async def on_wavelink_track_end(self, payload:wavelink.TrackEndEventPayload):   
         logging.info(f'Track {payload.track.title} ended')
         if len(self.player.queue):
             track = self.player.queue.get()
-            await self.player.play(track, volume=os.getenv('volume'), start=track.pass_sec*1000)
+            await self.player.play(track, start=track.pass_sec*1000)
 
     @commands.Cog.listener()
     async def on_wavelink_inactive_player(self, payload:wavelink.Player):
@@ -57,7 +57,7 @@ class Music(commands.Cog):
     @app_commands.describe(promt='Url or title of video',
                            source='Where find music. There are youtube, youtube music, soundcloud',
                            pass_sec='What amount of secounds skip')
-    async def play(self, interaction: discord.Interaction, *, promt:str, source:str=None, pass_sec:int=0, loop:bool=False) -> None:
+    async def play(self, interaction: discord.Interaction, *, promt:str, source:str=None, pass_sec:int=0) -> None:
         if not await self.bot.check_channel_id(interaction):return
         logging.info(f'Command play {promt=}...')
         self.last_interaction = interaction
@@ -68,11 +68,11 @@ class Music(commands.Cog):
         track.pass_sec = pass_sec
 
         if self.player.current is None:
-            await self.player.play(track, volume=os.getenv('volume'), start=pass_sec*1000)
+            await self.player.play(track, start=pass_sec*1000)
         else:
             await self.player.queue.put_wait(track)
             embed = discord.Embed(title=f'Added to queue: {track.title}',
-                              description=f'Lenth: {MusicService.mil_to_time(track.length)}',
+                              description=f'Lenth: {MusicService.mil_to_time(track.length)}\nURL: {track.uri}',
                               color=0x336EFF)
             if track.artwork:
                 embed.set_image(url=track.artwork)
@@ -83,7 +83,7 @@ class Music(commands.Cog):
     @app_commands.describe(promt='Url or title of video',
                            source='Where find music. There are youtube, youtube music, soundcloud',
                            pass_sec='What amount of secounds skip') 
-    async def fplay(self, interaction: discord.Interaction, *, promt:str, source:str=None, pass_sec:int=0, loop:bool=False) -> None:
+    async def fplay(self, interaction: discord.Interaction, *, promt:str, source:str=None, pass_sec:int=0) -> None:
         if not await self.bot.check_channel_id(interaction):return
         logging.info(f'Command fplay {promt=} {source=} {pass_sec=}...')
         self.last_interaction = interaction
@@ -92,7 +92,7 @@ class Music(commands.Cog):
         track = await self.music_service.search(interaction, promt, source)
         if track is not None:
             await self.player.stop()
-            await self.player.play(track, volume=os.getenv('volume'), start=pass_sec*1000)
+            await self.player.play(track, start=pass_sec*1000)
     
     @commands.bot.hybrid_command(name='skip', with_app_command=True, description='Skip track')
     @app_commands.guilds(discord.Object(id=os.getenv('guild')))
@@ -152,23 +152,6 @@ class Music(commands.Cog):
                 self.player.pause(True)
                 logging.info('Bot paused')
                 await interaction.reply('Bot is paused!')
-    
-    # @commands.bot.hybrid_command(name='loop', with_app_command=True, description='Loop current track')
-    # @app_commands.guilds(discord.Object(id=os.getenv('guild')))
-    async def loop(self, interaction: discord.Interaction) -> None:
-        if not await self.bot.check_channel_id(interaction):return
-        logging.info(f'Command pause...')
-        if self.player == None:
-            return await interaction.reply('Bot is stoped!')
-        elif self.player.current == None:
-            return await interaction.reply("Bot doesn't play anything!")    
-        else:
-            if self.player.current.loop:
-                self.current.loop = False
-                await interaction.reply('Track in unlooped')
-            else:
-                self.player.current.loop = True
-                await interaction.reply('Track in looped')
 
     @commands.bot.hybrid_command(name='queue', with_app_command=True, description='Show bot queue')
     @app_commands.guilds(discord.Object(id=os.getenv('guild')))

@@ -15,7 +15,6 @@ token=
 basic_source=youtube 
 leave_inactive_time=60
 channel_id=
-volume=30
 lavalink_ip=127.0.0.1
 lavalink_port=2333
 lavalink_password=8642

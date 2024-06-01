@@ -1,6 +1,7 @@
 import logging
-import os
+import subprocess
 import time
+import os
 
 import wavelink
 import discord
@@ -15,6 +16,7 @@ class MusicService():
         
     def lavalink_start(self):
         logging.info('Start LavaLink...')
+        p = subprocess.Popen('lavalink\\start.bat', creationflags=subprocess.CREATE_NEW_CONSOLE)
         time.sleep(5)
     
     async def _choose(self, interaction:discord.Interaction, tracks:list[wavelink.Playable]) -> wavelink.Playable:
