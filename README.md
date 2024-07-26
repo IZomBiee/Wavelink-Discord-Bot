@@ -26,7 +26,7 @@ cd Wavelink-Discord-Bot
 poetry install
 ```
 
-6. Download Lavalink [Here](https://serux.pro/Lavalink-v4-403-retry.jar) (Others version may not word) and place in lavalink folder
+6. Download Lavalink [Here](https://github.com/lavalink-devs/Lavalink/releases) and place in lavalink folder
 
 7. Run main file and change settings in .env:
 ```shell

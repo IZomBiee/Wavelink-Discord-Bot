@@ -23,6 +23,7 @@ class Music(commands.Cog):
         nodes = [wavelink.Node(uri=f"http://{os.getenv('lavalink_ip')}:{os.getenv('lavalink_port')}",
                                password=f"{os.getenv('lavalink_password')}",
                                inactive_player_timeout=int(os.getenv('leave_inactive_time')))]
+
         await wavelink.Pool.connect(nodes=nodes, client=self.bot, cache_capacity=int(os.getenv('cache')))
     
     @commands.Cog.listener()

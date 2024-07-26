@@ -5,14 +5,14 @@ lavalink:
   server:
     password: "8642"
     sources:
-      youtube: true
+      youtube: false
       bandcamp: true
       soundcloud: true
       twitch: true
       vimeo: true
       http: true
       local: true
-    bufferDurationMs: 700 # The duration of the NAS buffer. Higher values fare better against longer GC pauses. Minimum of 40ms, lower values may introduce pauses.
+    bufferDurationMs: 1500 # The duration of the NAS buffer. Higher values fare better against longer GC pauses. Minimum of 40ms, lower values may introduce pauses.
     frameBufferDurationMs: 7000 # How many milliseconds of audio to keep buffered
     opusEncodingQuality: 7 # Opus encoder quality. Valid values range from 0 to 10, where 10 is best quality but is the most expensive on the CPU.
     resamplingQuality: HIGH # Quality of resampling operations. Valid values are LOW, MEDIUM and HIGH, where HIGH uses the most CPU.
@@ -62,3 +62,6 @@ logging:
     rollingpolicy:
       max-file-size: 1GB
       max-history: 30
+plugins:
+  - dependency: "dev.lavalink.youtube:youtube-plugin:1.5.0"
+    snapshot: false 
