@@ -12,9 +12,9 @@ def check_env():
 '''
 guild=
 token=
+channel_id=
 basic_source=youtube 
 leave_inactive_time=60
-channel_id=
 lavalink_ip=127.0.0.1
 lavalink_port=2333
 lavalink_password=8642
@@ -36,4 +36,5 @@ if __name__ == '__main__':
 
     logging.info("Start bot...")
     discord_bot = Bot('!', discord.Intents.all(), os.getenv('token'))
+
     

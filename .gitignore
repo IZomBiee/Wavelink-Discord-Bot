@@ -2,4 +2,4 @@ __pycache__
 *.log
 .env
 lavalink/logs/
-lavalink.jar
+Lavalink.jar

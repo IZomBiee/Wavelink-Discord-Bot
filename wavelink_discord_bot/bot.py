@@ -8,6 +8,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import errors
 from cogs.music import Music
+from cogs.tools import Tools
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -15,9 +16,10 @@ class Bot(commands.Bot):
     def __init__(self, prefix, intents, token) -> None:
         super().__init__(command_prefix=prefix, intents=intents)
         self.run(token)
-    
+
     async def setup_hook(self) -> None:
         await self.add_cog(Music(self))
+        await self.add_cog(Tools(self))
         if os.getenv('command_sync') != 'false':
             logging.info(f'Sync {len(await self.tree.sync(guild=discord.Object(id=os.getenv('guild'))))} commands')
 
@@ -27,6 +29,8 @@ class Bot(commands.Bot):
                 ...
             case errors.MissingRequiredArgument:
                 ...
+            case errors.NotOwner:
+                await context.reply('You are not a owner!')
             case _:
                 logging.error(f'{type(exception)}: {exception}')
     

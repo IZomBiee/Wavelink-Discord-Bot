@@ -56,7 +56,7 @@ class Music(commands.Cog):
     @commands.bot.hybrid_command(name='play', with_app_command=True, description='Add track from title or url to queue')
     @app_commands.guilds(discord.Object(id=os.getenv('guild')))
     @app_commands.describe(promt='Url or title of video',
-                           source='Where find music. There are youtube, youtube music, soundcloud',
+                           source='Where find music. There are youtube, youtube_music, soundcloud',
                            pass_sec='What amount of secounds skip')
     async def play(self, interaction: discord.Interaction, *, promt:str, source:str=None, pass_sec:int=0) -> None:
         if not await self.bot.check_channel_id(interaction):return
@@ -82,7 +82,7 @@ class Music(commands.Cog):
     @commands.bot.hybrid_command(name='fplay', with_app_command=True, description='Play track from title or url to queue')
     @app_commands.guilds(discord.Object(id=os.getenv('guild')))
     @app_commands.describe(promt='Url or title of video',
-                           source='Where find music. There are youtube, youtube music, soundcloud',
+                           source='Where find music. There are youtube, youtube_music, soundcloud',
                            pass_sec='What amount of secounds skip') 
     async def fplay(self, interaction: discord.Interaction, *, promt:str, source:str=None, pass_sec:int=0) -> None:
         if not await self.bot.check_channel_id(interaction):return

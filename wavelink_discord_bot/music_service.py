@@ -40,17 +40,23 @@ class MusicService():
             return tracks[index-1]
 
     async def search(self, interaction:discord.Interaction, promt:str, source:str) -> wavelink.Playable:
-        if source == None:
-            source = os.getenv('basic_source')
         logging.info(f'Search {promt=} {source=}...')
+        sources = {'youtube':wavelink.TrackSource.YouTube,
+        'youtube_music':wavelink.TrackSource.YouTubeMusic,
+        'soundcloud':wavelink.TrackSource.SoundCloud}
+  
         try:
-            source = {'youtube':wavelink.TrackSource.YouTube,
-                    'youtube music':wavelink.TrackSource.YouTubeMusic,
-                    'soundcloud':wavelink.TrackSource.SoundCloud}[source.strip().lower()]
+            if source == None: raise KeyError
+            source = sources[source.strip().lower()]
         except KeyError:
-            await self.search(interaction, promt, None)
+            try:
+                source = sources[os.getenv('basic_source')]
+            except KeyError:
+                logging.error('Base source not identified or misspelled!')
+                return None
         
         tracks: wavelink.Search = await wavelink.Playable.search(promt, source=source)
+        logging.debug(f'Searched tracks: {tracks}')
         return await self._choose(interaction, tracks)
     
     @staticmethod

@@ -33,6 +33,8 @@ poetry install
 poetry run python "wavelink discord bot\main.py"
 ```
 
-7. Run main file again
+8. Run main file again
 
-8. Congratulations! You can see all commands write / in discord channel
+9. Congratulations! You can see all commands write / in discord channel
+
+### Note: Sometimes you may need to update the youtube plugin, it can be downloaded [Here](https://github.com/lavalink-devs/youtube-source/releases) and replaced in the lavalink/plugins folder. After that, in the lavalink folder you need to replace the last line in the application.yml ```dependency: "dev.lavalink.youtube:youtube-plugin:1.8.3"``` file with the correct version.

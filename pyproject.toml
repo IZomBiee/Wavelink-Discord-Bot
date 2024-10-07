@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "wavelink discord bot"
-version = "0.2.2"
-description = "Simple Discorrd music bot."
+name = "wavelink_discord_bot"
+version = "0.2.3"
+description = "Simple Discord music bot."
 authors = ["I ZomBie <patrik009009@gmail.com>"]
 readme = "README.md"
 package-mode = false
