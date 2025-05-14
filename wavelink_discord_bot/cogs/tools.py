@@ -13,9 +13,6 @@ class Tools(commands.Cog):
         logging.info('Load tools cog...')
         self.bot = bot
 
-    async def cog_load(self) -> None:
-        ...
-
     @commands.is_owner()
     @commands.bot.hybrid_command(name='shutdown', with_app_command=True, description='Stops the bot')
     @app_commands.guilds(discord.Object(id=os.getenv('guild')))

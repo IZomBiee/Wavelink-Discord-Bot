@@ -79,7 +79,7 @@ class Music(commands.Cog):
                 embed.set_image(url=track.artwork)
             await self.last_interaction.channel.send(embed=embed)
     
-    @commands.bot.hybrid_command(name='fplay', with_app_command=True, description='Play track from title or url to queue')
+    @commands.bot.hybrid_command(name='fplay', with_app_command=True, description='Play track without an queue, also overriding current song')
     @app_commands.guilds(discord.Object(id=os.getenv('guild')))
     @app_commands.describe(promt='Url or title of video',
                            source='Where find music. There are youtube, youtube_music, soundcloud',
@@ -146,11 +146,11 @@ class Music(commands.Cog):
             return await interaction.reply('Bot is stoped!')
         else:
             if self.player.paused:
-                self.player.pause(False)
+                await self.player.pause(False)
                 logging.info('Bot resumed')
                 await interaction.reply('Bot is resumed!')
             else:
-                self.player.pause(True)
+                await self.player.pause(True)
                 logging.info('Bot paused')
                 await interaction.reply('Bot is paused!')
 

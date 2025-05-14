@@ -7,7 +7,7 @@ import wavelink
 import discord
 
 from discord.ext import commands
-from menu import Menu
+import custom_inputs
 
 class MusicService():
     def __init__(self, bot:commands.Bot):
@@ -31,13 +31,12 @@ class MusicService():
         elif len(tracks) > 5:
             tracks = tracks[0:5]
         
-        index = await Menu.number(self.bot, interaction, f"Write number of track on {tracks[0].source}",
-        [{'name':i.title, 'value':f'{MusicService.mil_to_time(i.length)}'} for i in tracks],
-        False, 20)
-        if index == None:
+        index = await custom_inputs.emoji_numeric_menu(self.bot, interaction, f"Write number of track on {tracks[0].source}",
+        [i.title for i in tracks])
+        if index == -1:
             return None
         else:
-            return tracks[index-1]
+            return tracks[index]
 
     async def search(self, interaction:discord.Interaction, promt:str, source:str) -> wavelink.Playable:
         logging.info(f'Search {promt=} {source=}...')

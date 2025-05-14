@@ -32,9 +32,13 @@ poetry install
 ```shell
 poetry run python "wavelink discord bot\main.py"
 ```
+ 
+8. Go to lavalink/application.yml file and add your email and password of NOT MAIN google account
 
-8. Run main file again
+9. Run main file again
 
-9. Congratulations! You can see all commands write / in discord channel
+10. In CMD in the beginning you can see the link for confirming your account
+
+11. Congratulations! You can see all commands write / in discord channel
 
 ### Note: Sometimes you may need to update the youtube plugin, it can be downloaded [Here](https://github.com/lavalink-devs/youtube-source/releases) and replaced in the lavalink/plugins folder. After that, in the lavalink folder you need to replace the last line in the application.yml ```dependency: "dev.lavalink.youtube:youtube-plugin:1.8.3"``` file with the correct version.
